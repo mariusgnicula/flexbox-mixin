@@ -1,0 +1,74 @@
+// Flexbox mixin
+
+@mixin flex-justify($value) {
+    -webkit-justify-content: $value;
+    justify-content: $value;
+    -moz-justify-content: $value;
+    -ms-justify-content: $value;
+}
+
+@mixin flex-direction($value) {
+    -webkit-flex-direction: $value;
+    flex-direction: $value;
+    -moz-flex-direction: $value;
+    -ms-flex-direction: $value;
+}
+
+@mixin flex-wrap($value) {
+    -webkit-flex-wrap: $value;
+    flex-wrap: $value;
+    -moz-flex-wrap: $value;
+    -ms-flex-wrap: $value;
+}
+
+@mixin flex-items($value) {
+    -webkit-align-items: $value;
+    align-items: $value;
+    -moz-align-items: $value;
+    -ms-align-items: $value;
+}
+
+@mixin flex-self($value) {
+    -webkit-align-self: flex-start;
+    align-self: flex-start;
+    -moz-align-self: flex-start;
+    -ms-align-self: flex-start;
+}
+
+@mixin flex($justify: auto, $wrap: auto, $direction: auto, $target: auto, $target-align: center) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    @if $justify == auto {
+    } @else {
+        @include flex-justify($justify);
+    }
+
+    @if $wrap == auto {
+    } @else {
+        @include flex-wrap($wrap);
+    }
+
+    @if $direction == auto {
+    } @else {
+        @include flex-direction($direction);
+    }
+
+    @if $target == auto {
+        @if $target == items {
+            @include flex-items($target-align);
+        } @else if $target == self {
+            @include flex-self($target-align);
+        }
+    }
+}
+
+// to call it
+// you don't have to use all, but you do have to use them in the right order
+// if you need to skip a certain parameter, just use auto like so
+// @include flex(space-between, auto, auto, items, center);
+
+@include flex(space-between, wrap, row, items, center);
